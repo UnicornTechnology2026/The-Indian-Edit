@@ -32,7 +32,7 @@
         ctx.clearRect(0,0,cw,ch);
         const grad = ctx.createRadialGradient(cw/2, ch*0.45, 10, cw/2, ch*0.45, Math.max(cw,ch)*0.55);
         grad.addColorStop(0, 'rgba(212,175,55,0.05)');
-        grad.addColorStop(1, 'rgba(5,5,7,0.5)');
+        grad.addColorStop(1, 'rgba(36, 23, 16, 0.85)');
         ctx.fillStyle = grad; ctx.fillRect(0,0,cw,ch);
         particles.forEach(p=>{
           p.x += p.vx; p.y += p.vy;
@@ -249,7 +249,6 @@
         Audio_.playCorrect();
         state.collected.push(ing);
         state.score += 100;
-        showFeedback(`${ing.name} added! (+33.33% • ${state.collected.length}/3)`, true);
         el.classList.add('collected');
         const check = el.querySelector('.check-circle');
         check.classList.add('done');

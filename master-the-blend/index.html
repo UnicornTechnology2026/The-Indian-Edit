@@ -25,21 +25,6 @@
   <div id="root"></div>
   <canvas id="bgCanvas"></canvas>
 
-  <header>
-    <div class="brand">
-      <div class="brand-badge">E</div>
-      <div>
-        <div class="brand-name">THE INDIAN EDIT</div>
-        <div class="brand-tag">Different Origins. One Distinctive Edit.</div>
-      </div>
-    </div>
-    <div>
-      <button class="icon-btn" id="helpBtn" title="How to play">?</button>
-      <button class="icon-btn" id="soundBtn" title="Toggle sound">🔊</button>
-      <button class="icon-btn" id="restartBtn" title="Restart">⟲</button>
-    </div>
-  </header>
-
   <main>
 
     <!-- INTRO -->
@@ -51,8 +36,8 @@
       <div class="steps">
         <div class="step"><b>01</b><span class="t">Find Origins</span><span class="d">Locate 3 genuine puzzle
             origins</span></div>
-        <div class="step"><b>02</b><span class="t">Fill The Bottle</span><span class="d">Drag or tap into bottle
-            (+33.33% each)</span></div>
+        <div class="step"><b>02</b><span class="t">Fill The Bottle</span><span class="d">Drag or tap into bottle</span>
+        </div>
         <div class="step"><b>03</b><span class="t">Reveal Edit</span><span class="d">Unlock the master bottle</span>
         </div>
       </div>
@@ -83,18 +68,15 @@
         <div class="ingredients" id="ingredientsList"></div>
 
         <div class="vessel-wrap">
-          <div class="vessel-badge">
-            <span id="fillPercent">0.00%</span>
-            <span id="fillStatus" class="sans"
-              style="color:var(--gold);text-transform:uppercase;font-size:10px;">EMPTY</span>
-          </div>
+
           <div class="vessel-progress" id="vesselDots">
-            <div class="vessel-dot"></div>
-            <div class="vessel-dot"></div>
-            <div class="vessel-dot"></div>
+
           </div>
           <div class="vessel" id="vessel">
-            <div class="vessel-fill" id="vesselFill"></div>
+            <img class="bottle-base" src="/assets/NewBottle.png" alt="" draggable="false" />
+            <div class="vessel-fill" id="vesselFill">
+              <img class="bottle-fill-img" src="/assets/NewBottle.png" alt="The Indian Edit bottle" draggable="false" />
+            </div>
           </div>
           <div class="vessel-label" id="vesselLabel">DRAG OR TAP CRAFT INTO BOTTLE</div>
         </div>
@@ -142,11 +124,6 @@
     </section>
 
   </main>
-
-  <footer>
-    THE INDIAN EDIT — "Different origins. One distinctive edit."<br>
-    FOR LEGAL DRINKING AGE INDIVIDUALS ONLY.
-  </footer>
 </body>
 
 <div id="helpModal" class="hidden">
