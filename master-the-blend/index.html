@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en" class="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Master the Blend | The Indian Edit</title>
+  <meta name="description" content="Different origins. One distinctive edit. An interactive luxury brand experience." />
+  <meta property="og:title" content="Master the Blend | The Indian Edit" />
+  <meta property="og:description"
+    content="Different origins. One distinctive edit. An interactive luxury brand experience." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#0a0a0c" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600&display=swap"
+    rel="stylesheet" />
+  <script type="module" crossorigin src="./assets/index-ByxyAH-1.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-CVVRR-VX.css">
+</head>
+
+<body class="bg-[#0a0a0c] text-[#f4efe6] overflow-x-hidden select-none antialiased">
+  <div id="root"></div>
+  <canvas id="bgCanvas"></canvas>
+
+  <header>
+    <div class="brand">
+      <div class="brand-badge">E</div>
+      <div>
+        <div class="brand-name">THE INDIAN EDIT</div>
+        <div class="brand-tag">Different Origins. One Distinctive Edit.</div>
+      </div>
+    </div>
+    <div>
+      <button class="icon-btn" id="helpBtn" title="How to play">?</button>
+      <button class="icon-btn" id="soundBtn" title="Toggle sound">🔊</button>
+      <button class="icon-btn" id="restartBtn" title="Restart">⟲</button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- INTRO -->
+    <section id="introScreen">
+      <h1>THE INDIAN EDIT</h1>
+      <div class="tagline">"Different origins. One distinctive edit."</div>
+      <p class="desc">Bring together the right elements and create the distinctive edit. Discover the harmonic
+        convergence of Indian and Scottish spirits in a singular craft vessel.</p>
+      <div class="steps">
+        <div class="step"><b>01</b><span class="t">Find Origins</span><span class="d">Locate 3 genuine puzzle
+            origins</span></div>
+        <div class="step"><b>02</b><span class="t">Fill The Bottle</span><span class="d">Drag or tap into bottle
+            (+33.33% each)</span></div>
+        <div class="step"><b>03</b><span class="t">Reveal Edit</span><span class="d">Unlock the master bottle</span>
+        </div>
+      </div>
+      <button class="btn-primary" id="startBtn">✨ Start The Edit →</button>
+    </section>
+
+    <!-- GAME -->
+    <section id="gameScreen" class="hidden">
+      <div class="game-header">
+        <span class="step-badge">STEP 1 OF 1</span>
+        <h2 style="font-size:16px;letter-spacing:.2em;">MASTER THE BLEND</h2>
+        <p class="sans" style="font-size:12px;color:#aaa;">Select the right origins and bring them into the <span
+            style="color:var(--gold)">Indian Edit bottle</span>.</p>
+        <div class="hud">
+          <div class="hud-box">
+            <div class="hud-label">Blend Score</div>
+            <div class="hud-value" id="scoreValue">0</div>
+          </div>
+          <div id="feedback"></div>
+          <div class="hud-box">
+            <div class="hud-label">Time Remaining</div>
+            <div class="hud-value" id="timerValue">00:30</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="game-grid">
+        <div class="ingredients" id="ingredientsList"></div>
+
+        <div class="vessel-wrap">
+          <div class="vessel-badge">
+            <span id="fillPercent">0.00%</span>
+            <span id="fillStatus" class="sans"
+              style="color:var(--gold);text-transform:uppercase;font-size:10px;">EMPTY</span>
+          </div>
+          <div class="vessel-progress" id="vesselDots">
+            <div class="vessel-dot"></div>
+            <div class="vessel-dot"></div>
+            <div class="vessel-dot"></div>
+          </div>
+          <div class="vessel" id="vessel">
+            <div class="vessel-fill" id="vesselFill"></div>
+          </div>
+          <div class="vessel-label" id="vesselLabel">DRAG OR TAP CRAFT INTO BOTTLE</div>
+        </div>
+
+        <div class="comp-panel" style="display:none;" id="compPanel">
+          <div class="comp-title"><span>BLEND COMPOSITION</span><span id="compCount">0 / 3</span></div>
+          <div id="compSlots"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPLETED -->
+    <section id="completedScreen" class="hidden center-screen">
+      <div class="badge-pill">✨ Harmony Achieved</div>
+      <h1 style="font-size:2rem;letter-spacing:.2em;">EDIT COMPLETE</h1>
+      <p class="tagline" style="font-size:1rem;">Different origins. One distinctive edit.</p>
+      <div class="score-box">
+        <div class="hud-label">YOUR BLEND SCORE</div>
+        <div class="score-big" id="finalScore">0</div>
+        <div class="hud-label" style="color:var(--gold)">BLEND COMPLETE</div>
+        <div class="score-stats">
+          <div><span>Base Score</span><b id="statBase">0 pts</b></div>
+          <div><span>Speed Bonus</span><b id="statBonus" style="color:var(--gold)">—</b></div>
+          <div><span>Completion</span><b id="statTime" style="color:#34d399">0s</b></div>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn-secondary" id="playAgainBtn">⟲ Play Again</button>
+        <button class="btn-secondary" id="shareBtn">🔗 Share Score</button>
+      </div>
+    </section>
+
+    <!-- TIMEOUT -->
+    <section id="timeoutScreen" class="hidden center-screen">
+      <h2 style="font-size:1.6rem;letter-spacing:.2em;">TIME EXPIRED</h2>
+      <p class="tagline" style="font-size:.9rem;">"Mastery requires patience and precision."</p>
+      <div class="score-box">
+        <div class="hud-label">POINTS RECORDED</div>
+        <div class="score-big" id="timeoutScore">0 pts</div>
+        <p class="sans" style="font-size:11px;color:#999;margin-top:10px;">Unite <b style="color:var(--gold)">Indian
+            Malt</b>, <b style="color:var(--gold)">Indian Grain</b>, and <b style="color:var(--gold)">Scotch Malt</b>
+          into the EDIT vessel before 30 seconds elapse.</p>
+      </div>
+      <button class="btn-secondary" id="retryBtn">⟲ Retry The Edit</button>
+    </section>
+
+  </main>
+
+  <footer>
+    THE INDIAN EDIT — "Different origins. One distinctive edit."<br>
+    FOR LEGAL DRINKING AGE INDIVIDUALS ONLY.
+  </footer>
+</body>
+
+<div id="helpModal" class="hidden">
+  <div class="overlay"></div>
+  <div class="box">
+    <button class="close" id="closeHelp">✕</button>
+    <h3>✨ HOW TO MASTER THE BLEND</h3>
+    <p class="sans" style="font-size:12px;color:#ccc;">Bring together the 3 genuine craft origins into the EDIT vessel
+      before the 30-second timer expires.</p>
+    <ul class="sans" style="font-size:12px;color:#ccc;line-height:1.6;">
+      <li>🇮🇳 Indian Malt — Indian origin</li>
+      <li>🇮🇳 Indian Grain — Indian origin</li>
+      <li>🏴 Scotch Malt — Scottish origin</li>
+    </ul>
+    <p class="sans" style="font-size:12px;color:#ccc;">Correct: +100 pts. Incorrect (distractor): −25 pts. Finish in
+      under 15s: +50 speed bonus.</p>
+    <p class="sans" style="font-size:11px;color:#777;">Drag & drop or tap-to-place both work, on mobile and desktop.
+    </p>
+    <div style="text-align:right;margin-top:14px;">
+      <button class="btn-secondary" id="gotItBtn">Got it</button>
+    </div>
+  </div>
+</div>
+
+</html>

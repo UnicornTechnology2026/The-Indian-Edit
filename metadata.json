@@ -1,0 +1,6 @@
+{
+  "name": "The Indian Edit - Nagpur Interactive Brand Experience",
+  "description": "A luxury interactive heritage brand experience for The Indian Edit, exploring Nagpur's Orange City identity through mini-games, city building, personality discovery, and rewards.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
