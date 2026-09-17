@@ -27,8 +27,11 @@ const HOTSPOTS: Hotspot[] = [
     id: "cap",
     number: 1,
     label: "THE CROWN DETAIL",
-    top: "12%",
-    left: "50%",
+    // Positions are percentages of the bottle IMAGE itself (see the
+    // inline-block wrapper around <img> below), so they track the real
+    // photo regardless of surrounding container padding.
+    top: "10%",
+    left: "46%",
     question:
       "What does this architectural hexagonal cap contribute to the bottle's visual identity?",
     answers: [
@@ -46,8 +49,8 @@ const HOTSPOTS: Hotspot[] = [
     id: "identity",
     number: 2,
     label: "THE INDIAN IDENTITY",
-    top: "40%",
-    left: "50%",
+    top: "41%",
+    left: "46%",
     question:
       "Which visual idea is most strongly communicated by the central emblem?",
     answers: [
@@ -65,8 +68,8 @@ const HOTSPOTS: Hotspot[] = [
     id: "typography",
     number: 3,
     label: "THE EDIT TYPOGRAPHY",
-    top: "52%",
-    left: "50%",
+    top: "53%",
+    left: "46%",
     question:
       "What is the signature branding phrase displayed prominently on the glass?",
     answers: [
@@ -80,8 +83,8 @@ const HOTSPOTS: Hotspot[] = [
     id: "signature",
     number: 4,
     label: "THE SIGNATURE CREST",
-    top: "68%",
-    left: "50%",
+    top: "70%",
+    left: "46%",
     question:
       "What visual color combination creates the luxury contrast on this seal?",
     answers: [
@@ -95,8 +98,8 @@ const HOTSPOTS: Hotspot[] = [
     id: "closer",
     number: 5,
     label: "EMBOSSED ARTISAN BASE",
-    top: "86%",
-    left: "50%",
+    top: " 90%",
+    left: "46%",
     question:
       "Which craftsmanship approach is honored in this heavy crystalline glass base?",
     answers: [
@@ -112,10 +115,27 @@ const HOTSPOTS: Hotspot[] = [
   },
 ];
 
+// Fisher-Yates shuffle — returns a new array, doesn't mutate the input
+function shuffleAnswers(answers: Hotspot["answers"]): Hotspot["answers"] {
+  const copy = [...answers];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  // Reassign A/B/C/D labels to match the new, shuffled order
+  return copy.map((ans, idx) => ({
+    ...ans,
+    key: String.fromCharCode(65 + idx),
+  }));
+}
+
 export const Level3DecodeTheBottle: React.FC = () => {
   const { state, updateDecodeScore, navigateTo } = useGame();
 
   const [activeHotspot, setActiveHotspot] = useState<Hotspot | null>(null);
+  const [shuffledAnswers, setShuffledAnswers] = useState<Hotspot["answers"]>(
+    [],
+  );
   const [solvedHotspots, setSolvedHotspots] = useState<string[]>([]);
   const [zoomLevel, setZoomLevel] = useState(1.0);
   const [score, setScore] = useState(state.decodeScore || 0);
@@ -144,6 +164,14 @@ export const Level3DecodeTheBottle: React.FC = () => {
     window.addEventListener("message", handleMessage);
     return () => window.removeEventListener("message", handleMessage);
   }, []);
+
+  // Opens a hotspot's question with a freshly shuffled answer order every time
+  const openHotspot = (spot: Hotspot) => {
+    sound.playClick();
+    setActiveHotspot(spot);
+    setShuffledAnswers(shuffleAnswers(spot.answers));
+    setFeedback(null);
+  };
 
   const handleSelectAnswer = (answer: {
     key: string;
@@ -190,7 +218,7 @@ export const Level3DecodeTheBottle: React.FC = () => {
           <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#faf6f0] mt-1">
             Decode The Bottle
           </h2>
-          <p className="text-xs text-[#a69383] mt-1">
+          <p className="text-xs text-[#faf6f0] mt-1">
             Inspect all 5 artisanal details of The Indian Edit bespoke bottle to
             earn up to 1,000 craft points.
           </p>
@@ -265,32 +293,32 @@ export const Level3DecodeTheBottle: React.FC = () => {
             />
           ) : (
             <div className="relative w-full max-w-sm h-120 flex items-center justify-center select-none overflow-hidden">
-              {/* Bottle Render Container with smooth Zoom */}
+              {/* This wrapper is `inline-block`, so it shrink-wraps exactly
+                  to the rendered <img> box (not the taller outer container).
+                  That means the hotspot top/left percentages below are
+                  always relative to the actual bottle photo, never to
+                  empty space above or below it. */}
               <div
-                className="relative transition-transform duration-300 ease-out flex items-center justify-center w-full h-full"
+                className="relative inline-block transition-transform duration-300 ease-out"
                 style={{ transform: `scale(${zoomLevel})` }}
               >
                 <img
                   src="/assets/NewBottle.svg"
                   alt="The Indian Edit Bottle Detailed Render"
-                  className="w-auto h-110 max-w-full object-contain filter drop-shadow-[0_20px_35px_rgba(0,0,0,0.9)] pointer-events-none"
+                  className="block h-110 w-auto max-w-full object-contain filter drop-shadow-[0_20px_35px_rgba(0,0,0,0.9)] pointer-events-none"
                   onError={(e) => {
                     (e.currentTarget as HTMLImageElement).src =
                       "/decode-the-bottle/assets/bottle.jpg";
                   }}
                 />
 
-                {/* 5 Pulsing Interactive Hotspots */}
+                {/* 5 Pulsing Interactive Hotspots, anchored to the image */}
                 {HOTSPOTS.map((spot) => {
                   const isSolved = solvedHotspots.includes(spot.id);
                   return (
                     <button
                       key={spot.id}
-                      onClick={() => {
-                        sound.playClick();
-                        setActiveHotspot(spot);
-                        setFeedback(null);
-                      }}
+                      onClick={() => openHotspot(spot)}
                       className="absolute z-20 transform -translate-x-1/2 -translate-y-1/2 group cursor-pointer focus:outline-none"
                       style={{ top: spot.top, left: spot.left }}
                       title={`Inspect ${spot.label}`}
@@ -334,11 +362,7 @@ export const Level3DecodeTheBottle: React.FC = () => {
                 return (
                   <button
                     key={spot.id}
-                    onClick={() => {
-                      sound.playClick();
-                      setActiveHotspot(spot);
-                      setFeedback(null);
-                    }}
+                    onClick={() => openHotspot(spot)}
                     className={`w-full p-3 rounded-xl border text-left flex items-center justify-between transition-all cursor-pointer ${
                       isSolved
                         ? "bg-green-950/30 border-green-600/50 text-[#faf6f0]"
@@ -385,7 +409,7 @@ export const Level3DecodeTheBottle: React.FC = () => {
                     sound.playSuccess();
                     navigateTo("screen-level-4");
                   }}
-                  className="w-full py-3 btn-gold text-xs font-bold flex items-center justify-center gap-2 group cursor-pointer"
+                  className="w-full p-2 btn-gold text-xs font-bold flex items-center justify-center gap-2 group cursor-pointer"
                 >
                   <span>Proceed to Level 04: Master Blend</span>
                 </button>
@@ -437,9 +461,9 @@ export const Level3DecodeTheBottle: React.FC = () => {
             )}
 
             <div className="mt-4 space-y-2.5">
-              {activeHotspot.answers.map((ans) => (
+              {shuffledAnswers.map((ans) => (
                 <button
-                  key={ans.key}
+                  key={ans.text}
                   onClick={() => handleSelectAnswer(ans)}
                   className="w-full p-3 rounded-xl bg-[#170f0a] border border-[#3d261a] hover:border-[#d4af37] text-left text-xs text-[#faf6f0] hover:bg-[#2e1e15] flex items-center gap-3 transition-colors group cursor-pointer"
                 >
