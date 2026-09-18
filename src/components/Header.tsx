@@ -6,9 +6,10 @@ import { Volume2, VolumeX, Sparkles, RotateCcw, ChevronDown, Trophy, KeyRound } 
 interface HeaderProps {
   onOpenLeaderboard: () => void;
   onOpenSettings: () => void;
+  onShowIntroSplash?: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ onOpenLeaderboard, onOpenSettings }) => {
+export const Header: React.FC<HeaderProps> = ({ onOpenLeaderboard, onOpenSettings, onShowIntroSplash }) => {
   const { state, navigateTo, toggleSound, resetGame, loadDemoState } = useGame();
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -51,7 +52,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenLeaderboard, onOpenSetting
     { id: 'screen-level-2', label: 'Zero Mile Center', step: '02' },
     { id: 'screen-level-3', label: 'Decode The Bottle', step: '03' },
     { id: 'screen-level-4', label: 'Master The Blend', step: '04' },
-    { id: 'screen-level-5', label: 'Build Your Nagpur', step: '05' },
+    { id: 'screen-level-5', label: 'Hunt The Edit (Hidden Objects)', step: '05' },
     { id: 'screen-result', label: 'Master Score & Archetype', step: '⭐' },
     { id: 'screen-social', label: '1080p Social Post', step: '📸' },
     { id: 'screen-upload', label: 'Share Verification', step: '🎁' },
@@ -59,40 +60,40 @@ export const Header: React.FC<HeaderProps> = ({ onOpenLeaderboard, onOpenSetting
   ];
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-[#170f0a]/90 backdrop-blur-md border-b border-[#d4af37]/25 transition-all">
+    <header className="sticky top-0 z-40 w-full bg-[#070403]/85 backdrop-blur-md border-b border-[#d4af37]/30 transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         
         {/* Brand Crest & Title */}
         <button
           onClick={() => navigateTo('screen-welcome')}
-          className="flex items-center gap-3 text-left group focus:outline-none"
+          className="flex items-center gap-3 text-left group focus:outline-none cursor-pointer"
           title="Return to Experience Home"
         >
-          <div className="w-11 h-11 rounded-full border border-[#d4af37]/60 bg-[#2e1e15] flex items-center justify-center p-2 shadow-[0_0_15px_rgba(212,175,55,0.2)] group-hover:border-[#d4af37] group-hover:scale-105 transition-all">
+          <div className="w-11 h-11 rounded-full border border-[#d4af37]/70 bg-[#1a0c06] flex items-center justify-center p-2 shadow-[0_0_18px_rgba(212,175,55,0.25)] group-hover:border-[#d4af37] group-hover:scale-105 transition-all">
             <svg viewBox="0 0 24 24" className="w-full h-full fill-[#d4af37]">
               <path d="M19 13c.6 0 1-.4 1-1V8.5C20 5.5 17.5 3 14.5 3c-1.8 0-3.4 1-4.2 2.5C9.5 5.2 8.7 5 8 5 5.8 5 4 6.8 4 9v6h2v-3.5c0-.8.7-1.5 1.5-1.5h1.5v5h2v-5h2.5c.8 0 1.5.7 1.5 1.5V17h2v-4h2z" />
             </svg>
           </div>
           <div>
-            <span className="block font-serif text-lg sm:text-xl font-bold tracking-widest text-[#faf6f0] group-hover:text-[#f5d77f] transition-colors">
+            <span className="block font-serif text-lg sm:text-xl font-bold tracking-[0.18em] text-[#faf5eb] group-hover:text-[#f7e7a9] transition-colors">
               THE INDIAN EDIT
             </span>
             <span className="block text-[10px] sm:text-xs tracking-[0.25em] text-[#d4af37] font-medium uppercase">
-              Nagpur Brand Experience
+              Super Premium Whisky
             </span>
           </div>
         </button>
 
         {/* Center Live Telemetry */}
         <div className="hidden md:flex items-center gap-4">
-          <div className="px-3.5 py-1.5 rounded-full bg-[#2e1e15] border border-[#d4af37]/35 text-xs font-semibold tracking-wider text-[#f5d77f] shadow-inner">
+          <div className="px-3.5 py-1.5 rounded-full bg-[#1a0c06] border border-[#d4af37]/40 text-xs font-semibold tracking-wider text-[#f7e7a9] shadow-inner">
             {getLevelBadgeText(state.currentScreen)}
           </div>
 
-          <div className="flex items-center bg-[#22160f] border border-[#d4af37]/25 rounded-lg px-3 py-1.5 gap-2">
-            <span className="text-[10px] tracking-wider text-[#a69383] uppercase font-bold">SCORE</span>
-            <span className="font-serif text-lg font-bold text-[#f5d77f] tabular-nums">
-              {(state.scoreRush + state.scoreZero + state.decodeScore + state.blendScore + state.scoreCity).toLocaleString()}
+          <div className="flex items-center bg-[#130a05] border border-[#d4af37]/30 rounded-lg px-3 py-1.5 gap-2">
+            <span className="text-[10px] tracking-wider text-[#ab9580] uppercase font-bold">SCORE</span>
+            <span className="font-serif text-lg font-bold text-[#f7e7a9] tabular-nums">
+              {(state.scoreRush + state.scoreZero + state.decodeScore + state.blendScore + (state.huntScore || state.scoreCity || 0)).toLocaleString()}
             </span>
           </div>
         </div>
@@ -154,10 +155,22 @@ export const Header: React.FC<HeaderProps> = ({ onOpenLeaderboard, onOpenSetting
             )}
           </div>
 
+          {/* Intro Showcase Replay Button */}
+          {onShowIntroSplash && (
+            <button
+              onClick={onShowIntroSplash}
+              className="p-2 sm:px-3 sm:py-1.5 rounded-full border border-[#d4af37]/45 bg-[#1a0c06] text-[#f7e7a9] hover:bg-[#2e160f] hover:border-[#d4af37] transition-all flex items-center gap-1.5 text-xs shadow-sm cursor-pointer"
+              title="View The Indian Edit Luxury Bottle Showcase"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-[#d4af37]" />
+              <span className="hidden sm:inline font-medium">Showcase</span>
+            </button>
+          )}
+
           {/* Leaderboard Button */}
           <button
             onClick={onOpenLeaderboard}
-            className="p-2 sm:px-3 sm:py-1.5 rounded-full border border-[#d4af37]/30 bg-[#22160f] text-[#f5d77f] hover:bg-[#2e1e15] hover:border-[#d4af37] transition-all flex items-center gap-1.5 text-xs"
+            className="p-2 sm:px-3 sm:py-1.5 rounded-full border border-[#d4af37]/35 bg-[#130a05] text-[#f7e7a9] hover:bg-[#1f1008] hover:border-[#d4af37] transition-all flex items-center gap-1.5 text-xs cursor-pointer"
             title="Hall of Fame & Leaderboard"
           >
             <Trophy className="w-4 h-4 text-[#d4af37]" />
@@ -167,12 +180,12 @@ export const Header: React.FC<HeaderProps> = ({ onOpenLeaderboard, onOpenSetting
           {/* Audio Toggle */}
           <button
             onClick={toggleSound}
-            className="p-2 rounded-full border border-[#d4af37]/30 bg-[#22160f] text-[#f5d77f] hover:bg-[#2e1e15] hover:border-[#d4af37] transition-all"
+            className="p-2 rounded-full border border-[#d4af37]/35 bg-[#130a05] text-[#f7e7a9] hover:bg-[#1f1008] hover:border-[#d4af37] transition-all cursor-pointer"
             title={state.soundMuted ? 'Unmute Audio' : 'Mute Audio'}
             aria-label="Toggle Audio"
           >
             {state.soundMuted ? (
-              <VolumeX className="w-4 h-4 text-[#a69383]" />
+              <VolumeX className="w-4 h-4 text-[#ab9580]" />
             ) : (
               <Volume2 className="w-4 h-4 text-[#d4af37]" />
             )}
@@ -182,7 +195,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenLeaderboard, onOpenSetting
           {state.currentScreen !== 'screen-login' && !state.otpVerified && (
             <button
               onClick={() => navigateTo('screen-login')}
-              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#2e1e15] border border-[#d4af37]/35 text-xs text-[#faf6f0] hover:text-[#f5d77f] hover:border-[#d4af37] transition-all"
+              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#1a0c06] border border-[#d4af37]/40 text-xs text-[#faf5eb] hover:text-[#f7e7a9] hover:border-[#d4af37] transition-all cursor-pointer"
             >
               <KeyRound className="w-3.5 h-3.5 text-[#d4af37]" />
               <span>Login</span>
@@ -192,10 +205,10 @@ export const Header: React.FC<HeaderProps> = ({ onOpenLeaderboard, onOpenSetting
           {/* Settings / Demo Mode */}
           <button
             onClick={onOpenSettings}
-            className="p-2 rounded-full border border-[#d4af37]/30 bg-[#22160f] text-[#f5d77f] hover:bg-[#2e1e15] hover:border-[#d4af37] transition-all"
+            className="p-2 rounded-full border border-[#d4af37]/35 bg-[#130a05] text-[#f7e7a9] hover:bg-[#1f1008] hover:border-[#d4af37] transition-all cursor-pointer"
             title="Experience Controls & State Inspector"
           >
-            <Sparkles className="w-4 h-4 text-[#ff9933]" />
+            <Sparkles className="w-4 h-4 text-[#e58325]" />
           </button>
 
         </div>

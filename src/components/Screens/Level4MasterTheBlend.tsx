@@ -364,7 +364,7 @@ export const Level4MasterTheBlend: React.FC = () => {
                     }}
                     className="w-full py-3 btn-gold text-xs font-bold flex items-center justify-center gap-2 group cursor-pointer"
                   >
-                    <span>Proceed to Level 05: Build Nagpur</span>
+                    <span>Proceed to Level 05: Hunt The Edit</span>
                   </button>
                 </div>
               )}

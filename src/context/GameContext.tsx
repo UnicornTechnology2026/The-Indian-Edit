@@ -37,7 +37,12 @@ const INITIAL_STATE: GameState = {
   blendIncorrectAttempts: 0,
   blendCompleted: false,
 
-  // Level 5
+  // Level 5: The Indian Edit — Hunt The Edit
+  huntScore: 0,
+  huntBottlesFound: 0,
+  huntCompleted: false,
+  huntBestTime: 0,
+  scoreCity: 0,
   cityElements: {
     CITY: 0,
     CULTURE: 0,
@@ -46,7 +51,6 @@ const INITIAL_STATE: GameState = {
     LIFESTYLE: 0,
     FUTURE: 0
   },
-  scoreCity: 0,
 
   // Final Master
   totalScore: 0,
@@ -72,6 +76,8 @@ interface GameContextType {
   updateBlendScore: (score: number, base: number, speedBonus: number, attempts: number, completed: boolean) => void;
   addCityElementCount: (category: CityCategory) => void;
   finishCityBuilding: (elementsPlacedCount: number) => void;
+  updateHuntScore: (score: number, bottlesFound: number, bestTime: number) => void;
+  finishHuntGame: (score: number, bottlesFound: number, bestTime: number) => void;
   setScreenshotUploaded: (url: string) => void;
   setScratchRevealed: (revealed: boolean) => void;
   selectReward: (gift: RewardGift) => void;
@@ -203,6 +209,37 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
     });
   };
 
+  const updateHuntScore = (score: number, bottlesFound: number, bestTime: number) => {
+    setState(prev => ({
+      ...prev,
+      huntScore: Math.max(prev.huntScore || 0, score),
+      huntBottlesFound: Math.max(prev.huntBottlesFound || 0, bottlesFound),
+      huntBestTime: prev.huntBestTime > 0 ? Math.min(prev.huntBestTime, bestTime) : bestTime
+    }));
+  };
+
+  const finishHuntGame = (score: number, bottlesFound: number, bestTime: number) => {
+    setState(prev => {
+      const updated = {
+        ...prev,
+        huntScore: Math.max(prev.huntScore || 0, score),
+        huntBottlesFound: Math.max(prev.huntBottlesFound || 0, bottlesFound),
+        huntBestTime: prev.huntBestTime > 0 ? Math.min(prev.huntBestTime, bestTime) : bestTime,
+        huntCompleted: true,
+        scoreCity: Math.max(prev.scoreCity || 0, Math.min(3500, Math.round(score * 0.12)))
+      };
+      const total = computeMasterScore(updated);
+      const pers = computePersonality(updated);
+      const gift = prev.selectedGift || REWARD_GIFTS[Math.floor(Math.random() * REWARD_GIFTS.length)];
+      return {
+        ...updated,
+        totalScore: total,
+        personality: pers,
+        selectedGift: gift
+      };
+    });
+  };
+
   const setScreenshotUploaded = (url: string) => {
     setState(prev => ({
       ...prev,
@@ -266,6 +303,10 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
         FUTURE: 2
       },
       scoreCity: 3200,
+      huntScore: 27850,
+      huntBottlesFound: 15,
+      huntCompleted: true,
+      huntBestTime: 18.6,
       totalScore: 9480,
       personality: null,
       screenshotUploaded: false,
@@ -294,6 +335,8 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
         updateBlendScore,
         addCityElementCount,
         finishCityBuilding,
+        updateHuntScore,
+        finishHuntGame,
         setScreenshotUploaded,
         setScratchRevealed,
         selectReward,

@@ -115,17 +115,52 @@ class SoundEngine {
     });
   }
 
-  public playReveal() {
+  public playFound() {
     if (this.muted) return;
     this.init();
     if (!this.ctx) return;
 
-    const freqs = [440, 554, 659, 880, 1108];
-    freqs.forEach((f, i) => {
+    // Sparkling golden chime
+    const notes = [587.33, 739.99, 880.0, 1174.66]; // D5, F#5, A5, D6
+    notes.forEach((freq, idx) => {
       setTimeout(() => {
-        this.playTone(f, 'sine', 0.35, 0.15, 0.001);
-      }, i * 60);
+        this.playTone(freq, 'sine', 0.28, 0.16, 0.001);
+      }, idx * 60);
     });
+  }
+
+  public playMiss() {
+    if (this.muted) return;
+    this.init();
+    if (!this.ctx) return;
+
+    // Gentle subtle thud
+    this.playTone(196, 'triangle', 0.12, 0.12, 0.001);
+  }
+
+  public playWarning() {
+    if (this.muted) return;
+    this.init();
+    if (!this.ctx) return;
+
+    this.playTone(660, 'sine', 0.15, 0.18, 0.001);
+  }
+
+  public playRoundComplete() {
+    if (this.muted) return;
+    this.init();
+    if (!this.ctx) return;
+
+    const chords = [523.25, 659.25, 783.99, 1046.5];
+    chords.forEach((freq, idx) => {
+      setTimeout(() => {
+        this.playTone(freq, 'triangle', 0.35, 0.14, 0.001);
+      }, idx * 80);
+    });
+  }
+
+  public playCelebration() {
+    this.playFanfare();
   }
 }
 

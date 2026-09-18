@@ -18,13 +18,23 @@ export interface PersonalityType {
   tags: string;
   quote: string;
   desc: string;
+  tagline?: string;
+  description?: string;
+  signatureCocktail?: {
+    name: string;
+    ingredients: string;
+    garnish: string;
+  };
 }
 
 export interface RewardGift {
   id: string;
   name: string;
   desc: string;
+  description?: string;
   code: string;
+  value?: string;
+  icon?: string;
 }
 
 export type CityCategory = 'CITY' | 'CULTURE' | 'FOOD' | 'TECHNOLOGY' | 'LIFESTYLE' | 'FUTURE';
@@ -69,9 +79,13 @@ export interface GameState {
   blendIncorrectAttempts: number;
   blendCompleted: boolean;
 
-  // Level 5: City Builder
-  cityElements: Record<CityCategory, number>;
+  // Level 5: The Indian Edit — Hunt The Edit
+  huntScore: number;
+  huntBottlesFound: number;
+  huntCompleted: boolean;
+  huntBestTime: number;
   scoreCity: number;
+  cityElements: Record<CityCategory, number>;
 
   // Final Master
   totalScore: number;

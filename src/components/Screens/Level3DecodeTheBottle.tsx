@@ -303,13 +303,10 @@ export const Level3DecodeTheBottle: React.FC = () => {
                 style={{ transform: `scale(${zoomLevel})` }}
               >
                 <img
-                  src="/assets/NewBottle.svg"
-                  alt="The Indian Edit Bottle Detailed Render"
-                  className="block h-110 w-auto max-w-full object-contain filter drop-shadow-[0_20px_35px_rgba(0,0,0,0.9)] pointer-events-none"
-                  onError={(e) => {
-                    (e.currentTarget as HTMLImageElement).src =
-                      "/decode-the-bottle/assets/bottle.jpg";
-                  }}
+                  src="/decode-the-bottle/assets/bottle.jpg"
+                  alt="The Indian Edit Bottle"
+                  className="block h-110 w-auto max-w-full object-contain pointer-events-none rounded-lg shadow-2xl"
+                  referrerPolicy="no-referrer"
                 />
 
                 {/* 5 Pulsing Interactive Hotspots, anchored to the image */}

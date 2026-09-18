@@ -45,50 +45,62 @@ export const WelcomeScreen: React.FC = () => {
     },
     {
       num: "05",
-      title: "Build Your Nagpur",
-      desc: "30s architectural canvas crafting modern towers, art pavilions, and orange groves.",
-      icon: "🏛️",
+      title: "Hunt The Edit",
+      desc: "3-round hidden object challenge spotting 5 signature bottles in royal scenes before time expires.",
+      icon: "🥃",
     },
   ];
 
   return (
     <div className="max-w-4xl mx-auto py-10 px-4 sm:px-6 animate-fade-in text-center">
       {/* Prologue Eyebrow */}
-      <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#2e1e15] border border-[#d4af37]/40 text-xs font-semibold tracking-[0.2em] text-[#f5d77f] uppercase mb-4 shadow">
+      <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#1a0c06]/90 border border-[#d4af37]/50 text-xs font-semibold tracking-[0.25em] text-[#f7e7a9] uppercase mb-4 shadow">
         <Compass className="w-3.5 h-3.5 text-[#d4af37]" />
         <span>
           Welcome {state.userName ? `${state.userName}` : "to The Experience"}
         </span>
       </div>
 
-      <h1 className="font-serif text-3xl sm:text-5xl font-bold text-[#faf6f0] tracking-wide leading-tight">
-        Rooted in Heritage. <br />
-        <span className="gold-gradient-text">Designed for Tomorrow.</span>
+      <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl font-bold text-[#faf5eb] tracking-[0.12em] leading-tight uppercase">
+        India's Rich Heritage. <br />
+        <span className="gold-gradient-text">A Premium Blend.</span>
       </h1>
 
-      <p className="mt-4 text-sm sm:text-base text-[#warm-beige] max-w-2xl mx-auto leading-relaxed">
+      <p className="mt-4 text-sm sm:text-base md:text-lg text-[#ebd9c0] max-w-2xl mx-auto leading-relaxed font-light">
         A celebration of Indian craftsmanship, refined character, and the art of
         fine whisky. Step into The Indian Edit and embark on a five-part journey
         through flavour, heritage, and the spirit of extraordinary experiences.
       </p>
+
+      {/* Authentic Bottle Visual As It Is */}
+      <div className="my-6 flex justify-center">
+        <div className="relative p-2 rounded-2xl bg-[#140a05]/90 border border-[#d4af37]/40 shadow-[0_20px_50px_rgba(0,0,0,0.9)] transition-transform duration-300 hover:scale-[1.01]">
+          <img
+            src="/assets/indian-edit-hero.jpg"
+            alt="The Indian Edit Super Premium Whisky"
+            className="h-60 sm:h-72 md:h-80 w-auto object-contain rounded-xl"
+            referrerPolicy="no-referrer"
+          />
+        </div>
+      </div>
 
       {/* Levels 5-Step Grid */}
       <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5 text-left">
         {levelsOverview.map((item) => (
           <div
             key={item.num}
-            className="p-4 rounded-xl bg-[#22160f]/80 border border-[#d4af37]/30 hover:border-[#d4af37] transition-all hover:-translate-y-1 group shadow-lg"
+            className="p-4 rounded-xl bg-[#140a05]/85 backdrop-blur-md border border-[#d4af37]/35 hover:border-[#d4af37] transition-all hover:-translate-y-1 group shadow-xl"
           >
             <div className="flex items-center justify-between mb-2">
               <span className="text-xl">{item.icon}</span>
-              <span className="text-[10px] font-mono font-bold tracking-widest text-[#d4af37] px-2 py-0.5 rounded bg-[#170f0a] border border-[#d4af37]/30">
+              <span className="text-[10px] font-mono font-bold tracking-widest text-[#f7e7a9] px-2 py-0.5 rounded bg-[#0a0503] border border-[#d4af37]/35">
                 L-{item.num}
               </span>
             </div>
-            <h3 className="font-serif text-sm font-bold text-[#faf6f0] group-hover:text-[#f5d77f] transition-colors">
+            <h3 className="font-serif text-sm font-bold text-[#faf5eb] group-hover:text-[#f7e7a9] transition-colors">
               {item.title}
             </h3>
-            <p className="text-[11px] text-[#a69383] mt-1 line-clamp-3">
+            <p className="text-[11px] text-[#ab9580] mt-1 line-clamp-3">
               {item.desc}
             </p>
           </div>
@@ -96,16 +108,16 @@ export const WelcomeScreen: React.FC = () => {
       </div>
 
       {/* Reward Incentive Card */}
-      <div className="mt-8 p-4 sm:p-5 rounded-2xl bg-linear-to-r from-[#2e1e15] via-[#3d261a] to-[#22160f] border border-[#d4af37]/50 max-w-2xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl">
+      <div className="mt-8 p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-[#1f1008]/90 via-[#2d160b]/90 to-[#140a05]/90 backdrop-blur-md border border-[#d4af37]/60 max-w-2xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 shadow-2xl">
         <div className="flex items-center gap-3 text-left">
-          <div className="w-16 h-10 rounded-full bg-[#d4af37] text-[#170f0a] flex items-center justify-center font-bold text-lg shadow">
+          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#f7e7a9] to-[#d4af37] text-[#070403] flex items-center justify-center font-bold text-xl shadow-lg shrink-0">
             🎁
           </div>
           <div>
-            <h4 className="font-serif text-sm font-bold text-[#faf6f0]">
+            <h4 className="font-serif text-sm sm:text-base font-bold text-[#faf5eb]">
               Grand Finale Privilege Reward
             </h4>
-            <p className="text-xs text-[#d4af37]">
+            <p className="text-xs text-[#f7e7a9]">
               Unlocks custom 1080p Instagram post + Gold Foil Scratch Card.
             </p>
           </div>

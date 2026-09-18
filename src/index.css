@@ -2,61 +2,64 @@
 
 @layer base {
   :root {
-    --bg-primary: #170f0a;
-    --bg-secondary: #22160f;
-    --bg-tertiary: #2e1e15;
-    --bg-card: rgba(36, 23, 16, 0.88);
-    --bg-card-hover: rgba(52, 33, 23, 0.96);
+    --bg-primary: #070403;
+    --bg-secondary: #130a05;
+    --bg-tertiary: #1f1008;
+    --bg-card: rgba(20, 10, 6, 0.88);
+    --bg-card-hover: rgba(32, 16, 10, 0.96);
 
-    --earth-brown: #3d261a;
-    --terracotta: #b84a20;
+    --earth-brown: #2d160b;
+    --terracotta: #c2531a;
     --terracotta-dark: #8c3210;
-    --orange-nagpur: #e26f20;
-    --orange-glow: #ff8c3b;
-    --ruby-accent: #91161d;
-    --ruby-deep: #590a0f;
+    --orange-nagpur: #e58325;
+    --orange-glow: #f59e0b;
+    --ruby-accent: #8b151b;
+    --ruby-deep: #5a0a0e;
 
     --gold-primary: #d4af37;
-    --gold-light: #f5d77f;
-    --gold-shimmer: #fff1b8;
-    --gold-dark: #8a671a;
+    --gold-light: #f7e7a9;
+    --gold-shimmer: #fff3c4;
+    --gold-dark: #937119;
     --gold-border: rgba(212, 175, 55, 0.35);
-    --gold-border-bright: rgba(212, 175, 55, 0.8);
-    --gold-glow: rgba(212, 175, 55, 0.25);
+    --gold-border-bright: rgba(212, 175, 55, 0.85);
+    --gold-glow: rgba(212, 175, 55, 0.3);
 
-    --cream-white: #faf6f0;
-    --warm-beige: #e5d8cb;
-    --muted-sand: #b8a695;
-    --dark-charcoal: #120c08;
-    --text-muted: #a69383;
+    --cream-white: #faf5eb;
+    --warm-beige: #ebd9c0;
+    --muted-sand: #ab9580;
+    --dark-charcoal: #0a0503;
+    --text-muted: #a6907c;
   }
 
   body {
-    background-color: #170f0a;
-    color: #faf6f0;
+    background-color: #070403;
+    color: #faf5eb;
     font-family: 'Montserrat', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     background-image: 
-      radial-gradient(circle at 50% 10%, rgba(226, 111, 32, 0.12) 0%, transparent 60%),
-      radial-gradient(circle at 10% 90%, rgba(145, 22, 29, 0.15) 0%, transparent 50%),
-      radial-gradient(circle at 90% 80%, rgba(212, 175, 55, 0.08) 0%, transparent 50%),
-      url('/assets/heritage-pattern.svg');
+      radial-gradient(ellipse at 50% 20%, rgba(229, 131, 37, 0.12) 0%, transparent 60%),
+      radial-gradient(ellipse at 85% 75%, rgba(139, 21, 27, 0.1) 0%, transparent 50%),
+      linear-gradient(180deg, rgba(7, 4, 3, 0.94) 0%, rgba(10, 5, 3, 0.9) 50%, rgba(7, 4, 3, 0.96) 100%),
+      url('/assets/indian-edit-hero.jpg');
     background-attachment: fixed;
-    background-size: auto, auto, auto, 140px 140px;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
     min-height: 100vh;
   }
 
   h1, h2, h3, h4, .font-serif {
-    font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+    font-family: 'Cinzel', 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+    letter-spacing: 0.05em;
   }
 }
 
-/* Custom Glass & Gold Utilities */
+/* Custom Glass & Gold Utilities matching the luxury bottle aesthetics */
 .gold-card {
-  background: rgba(36, 23, 16, 0.88);
-  border: 1px solid rgba(212, 175, 55, 0.35);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(212, 175, 55, 0.04);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(20, 10, 6, 0.88);
+  border: 1px solid rgba(212, 175, 55, 0.38);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.75), inset 0 0 20px rgba(212, 175, 55, 0.05);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border-radius: 1rem;
 }
 
@@ -65,42 +68,43 @@
 }
 
 .gold-card-hover:hover {
-  border-color: rgba(212, 175, 55, 0.7);
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(212, 175, 55, 0.15);
+  border-color: rgba(212, 175, 55, 0.75);
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.85), 0 0 25px rgba(212, 175, 55, 0.22);
   transform: translateY(-2px);
 }
 
 .gold-gradient-text {
-  background: linear-gradient(135deg, #fff1b8 0%, #d4af37 50%, #aa8222 100%);
+  background: linear-gradient(135deg, #fff3c4 0%, #f7e7a9 30%, #d4af37 70%, #937119 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.orange-gradient-text {
-  background: linear-gradient(135deg, #ffb366 0%, #e26f20 60%, #b84a20 100%);
+.orange-gradient-text, .amber-gradient-text {
+  background: linear-gradient(135deg, #ffc278 0%, #e58325 55%, #b84a20 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .ruby-gradient-text {
-  background: linear-gradient(135deg, #f0828a 0%, #91161d 60%, #590a0f 100%);
+  background: linear-gradient(135deg, #f87171 0%, #dc2626 40%, #8b151b 80%, #5a0a0e 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .btn-gold {
-  background: linear-gradient(135deg, #d4af37 0%, #b89126 100%);
-  color: #170f0a;
-  font-weight: 600;
-  letter-spacing: 0.05em;
+  background: linear-gradient(135deg, #f7e7a9 0%, #d4af37 50%, #b89126 100%);
+  color: #0d0603;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   border-radius: 9999px;
-  box-shadow: 0 4px 18px rgba(212, 175, 55, 0.35);
+  box-shadow: 0 4px 22px rgba(212, 175, 55, 0.42);
   transition: all 0.25s ease;
 }
 
 .btn-gold:hover {
-  background: linear-gradient(135deg, #f5d77f 0%, #d4af37 100%);
-  box-shadow: 0 6px 24px rgba(212, 175, 55, 0.55);
+  background: linear-gradient(135deg, #fff3c4 0%, #f7e7a9 50%, #d4af37 100%);
+  box-shadow: 0 6px 30px rgba(212, 175, 55, 0.65);
   transform: translateY(-1px);
 }
 
@@ -109,17 +113,18 @@
 }
 
 .btn-secondary-outline {
-  background: rgba(23, 15, 10, 0.6);
-  border: 1px solid rgba(212, 175, 55, 0.4);
-  color: #f5d77f;
+  background: rgba(18, 9, 5, 0.75);
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  color: #f7e7a9;
+  font-weight: 600;
   border-radius: 9999px;
   transition: all 0.25s ease;
 }
 
 .btn-secondary-outline:hover {
-  background: rgba(212, 175, 55, 0.12);
-  border-color: rgba(212, 175, 55, 0.8);
-  color: #fff1b8;
+  background: rgba(212, 175, 55, 0.16);
+  border-color: rgba(212, 175, 55, 0.85);
+  color: #fff3c4;
 }
 
 /* Custom Scrollbar */
@@ -129,13 +134,13 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #170f0a;
+  background: #070403;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #3d261a;
+  background: #2d160b;
   border-radius: 4px;
-  border: 1px solid rgba(212, 175, 55, 0.2);
+  border: 1px solid rgba(212, 175, 55, 0.25);
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -144,18 +149,18 @@
 
 @keyframes floatSlow {
   0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-8px) rotate(1deg); }
+  50% { transform: translateY(-7px) rotate(0.8deg); }
 }
 
 .animate-float-slow {
-  animation: floatSlow 6s ease-in-out infinite;
+  animation: floatSlow 5s ease-in-out infinite;
 }
 
 @keyframes pulseGlow {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 0.8; }
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.04); }
 }
 
 .animate-pulse-glow {
-  animation: pulseGlow 3s ease-in-out infinite;
+  animation: pulseGlow 3.5s ease-in-out infinite;
 }

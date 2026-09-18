@@ -1,0 +1,146 @@
+import React from 'react';
+import { Eye, Hand, Timer, ArrowRight, ShieldCheck } from 'lucide-react';
+import { sound } from '../../utils/audio';
+
+interface InstructionsScreenProps {
+  onStartRoundOne: () => void;
+}
+
+export const InstructionsScreen: React.FC<InstructionsScreenProps> = ({ onStartRoundOne }) => {
+  const handleStart = () => {
+    sound.playClick();
+    onStartRoundOne();
+  };
+
+  return (
+    <div className="max-w-4xl mx-auto py-8 sm:py-12 px-4 sm:px-6 animate-fade-in text-center">
+      {/* Eyebrow */}
+      <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#170c07]/90 border border-[#d4af37]/40 text-xs font-semibold tracking-[0.2em] text-[#f7e7a9] uppercase mb-4 shadow-md">
+        <ShieldCheck className="w-3.5 h-3.5 text-[#d4af37]" />
+        <span>HOW TO PLAY</span>
+      </div>
+
+      <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-[0.12em] text-[#faf5eb] uppercase">
+        HUNT THE <span className="gold-gradient-text">EDIT</span>
+      </h1>
+
+      <p className="mt-3 text-base sm:text-lg text-[#ebd9c0] max-w-xl mx-auto font-light leading-relaxed">
+        Five signature bottles are hidden inside each scene.
+      </p>
+
+      {/* 3 Instruction Cards */}
+      <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 text-left">
+        {/* Card 01 */}
+        <div className="p-6 rounded-2xl bg-[#140a05]/85 backdrop-blur-md border border-[#d4af37]/35 hover:border-[#d4af37]/70 transition-all duration-300 shadow-xl group">
+          <div className="flex items-center justify-between mb-4">
+            <span className="font-mono text-2xl font-bold text-[#d4af37] tracking-widest">
+              01
+            </span>
+            <div className="w-10 h-10 rounded-xl bg-[#1a0c06] border border-[#d4af37]/40 flex items-center justify-center text-[#f7e7a9] group-hover:scale-110 transition-transform">
+              <Eye className="w-5 h-5 text-[#d4af37]" />
+            </div>
+          </div>
+          <h3 className="font-serif text-lg font-bold text-[#faf5eb] tracking-wide mb-2 uppercase">
+            SCAN
+          </h3>
+          <p className="text-sm text-[#ab9580] leading-relaxed">
+            Carefully explore the image. Look through shelves, arches, shadows, and architectural details.
+          </p>
+        </div>
+
+        {/* Card 02 */}
+        <div className="p-6 rounded-2xl bg-[#140a05]/85 backdrop-blur-md border border-[#d4af37]/35 hover:border-[#d4af37]/70 transition-all duration-300 shadow-xl group">
+          <div className="flex items-center justify-between mb-4">
+            <span className="font-mono text-2xl font-bold text-[#d4af37] tracking-widest">
+              02
+            </span>
+            <div className="w-10 h-10 rounded-xl bg-[#1a0c06] border border-[#d4af37]/40 flex items-center justify-center text-[#f7e7a9] group-hover:scale-110 transition-transform">
+              <Hand className="w-5 h-5 text-[#d4af37]" />
+            </div>
+          </div>
+          <h3 className="font-serif text-lg font-bold text-[#faf5eb] tracking-wide mb-2 uppercase">
+            TAP
+          </h3>
+          <p className="text-sm text-[#ab9580] leading-relaxed">
+            Tap a hidden bottle when you spot it. Precision matters: correct taps reward +1000, while misses cost -100.
+          </p>
+        </div>
+
+        {/* Card 03 */}
+        <div className="p-6 rounded-2xl bg-[#140a05]/85 backdrop-blur-md border border-[#d4af37]/35 hover:border-[#d4af37]/70 transition-all duration-300 shadow-xl group">
+          <div className="flex items-center justify-between mb-4">
+            <span className="font-mono text-2xl font-bold text-[#d4af37] tracking-widest">
+              03
+            </span>
+            <div className="w-10 h-10 rounded-xl bg-[#1a0c06] border border-[#d4af37]/40 flex items-center justify-center text-[#f7e7a9] group-hover:scale-110 transition-transform">
+              <Timer className="w-5 h-5 text-[#d4af37]" />
+            </div>
+          </div>
+          <h3 className="font-serif text-lg font-bold text-[#faf5eb] tracking-wide mb-2 uppercase">
+            BEAT THE CLOCK
+          </h3>
+          <p className="text-sm text-[#ab9580] leading-relaxed">
+            Find all 5 before time runs out. Remaining seconds turn into generous speed bonus points (+100/sec).
+          </p>
+        </div>
+      </div>
+
+      {/* Rounds Progression Overview */}
+      <div className="mt-8 p-5 rounded-2xl bg-gradient-to-r from-[#170c07]/90 via-[#23120b]/90 to-[#140a05]/90 border border-[#d4af37]/45 shadow-xl max-w-3xl mx-auto">
+        <h4 className="font-serif text-xs font-bold tracking-[0.25em] text-[#d4af37] uppercase mb-4">
+          CHALLENGE SCHEDULE
+        </h4>
+        <div className="grid grid-cols-3 gap-2 sm:gap-4 divide-x divide-[#d4af37]/20">
+          <div className="px-2 text-center">
+            <span className="block text-[10px] font-mono tracking-widest text-[#ab9580] uppercase">
+              ROUND 1
+            </span>
+            <span className="font-serif text-base sm:text-lg font-bold text-[#faf5eb]">
+              EASY
+            </span>
+            <span className="block text-xs font-mono text-[#f7e7a9] mt-0.5 font-semibold">
+              30 SECONDS
+            </span>
+          </div>
+
+          <div className="px-2 text-center">
+            <span className="block text-[10px] font-mono tracking-widest text-[#ab9580] uppercase">
+              ROUND 2
+            </span>
+            <span className="font-serif text-base sm:text-lg font-bold text-[#faf5eb]">
+              MEDIUM
+            </span>
+            <span className="block text-xs font-mono text-[#f7e7a9] mt-0.5 font-semibold">
+              25 SECONDS
+            </span>
+          </div>
+
+          <div className="px-2 text-center">
+            <span className="block text-[10px] font-mono tracking-widest text-[#ab9580] uppercase">
+              ROUND 3
+            </span>
+            <span className="font-serif text-base sm:text-lg font-bold text-[#faf5eb]">
+              HARD
+            </span>
+            <span className="block text-xs font-mono text-[#f7e7a9] mt-0.5 font-semibold">
+              20 SECONDS
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* Primary CTA */}
+      <div className="mt-8">
+        <button
+          type="button"
+          id="btn-start-round-1"
+          onClick={handleStart}
+          className="px-10 py-4 rounded-xl bg-gradient-to-b from-[#1c0e07] to-[#0a0402] border border-[#d4af37] text-sm sm:text-base font-bold tracking-[0.2em] text-[#faf5eb] uppercase cursor-pointer shadow-[0_10px_35px_rgba(212,175,55,0.35)] hover:shadow-[0_15px_45px_rgba(212,175,55,0.55)] hover:border-[#fff3c4] transform hover:-translate-y-1 active:translate-y-0 transition-all duration-300 inline-flex items-center justify-center gap-3"
+        >
+          <span className="text-[#fff3c4]">START ROUND 1</span>
+          <ArrowRight className="w-4 h-4 text-[#d4af37]" />
+        </button>
+      </div>
+    </div>
+  );
+};
